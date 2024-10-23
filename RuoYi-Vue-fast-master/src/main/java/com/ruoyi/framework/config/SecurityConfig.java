@@ -97,7 +97,7 @@ public class SecurityConfig
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception
     {
         return httpSecurity
-            // CSRF禁用，因为不使用session
+            // CSRF��用，因为不使用session
             .csrf(csrf -> csrf.disable())
             // 禁用HTTP响应标头
             .headers((headersCustomizer) -> {

@@ -49,6 +49,8 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { sendmsg } from "@/api/system/post"
+//import { sendmsg as sendmsgbaoxiao } from "@/api/system/baoxiao"
 
 const formRef = ref(null)
 
@@ -61,11 +63,11 @@ const form = reactive({
 })
 
 const rules = {
-  name: [{ required: true, message: '请输入申请人姓名', trigger: 'blur' }],
-  department: [{ required: true, message: '请输入部门', trigger: 'blur' }],
-  amount: [{ required: true, message: '请输入报销金额', trigger: 'blur' }],
-  reason: [{ required: true, message: '请输入报销事由', trigger: 'blur' }],
-  date: [{ type: 'date', required: true, message: '请选择消费日期', trigger: 'change' }],
+  // name: [{ required: true, message: '请输入申请人姓名', trigger: 'blur' }],
+  // department: [{ required: true, message: '请输入部门', trigger: 'blur' }],
+  // amount: [{ required: true, message: '请输入报销金额', trigger: 'blur' }],
+  // reason: [{ required: true, message: '请输入报销事由', trigger: 'blur' }],
+  // date: [{ type: 'date', required: true, message: '请选择消费日期', trigger: 'change' }],
 }
 
 const fileList = ref([])
@@ -98,8 +100,13 @@ const submitForm = async () => {
   if (!formRef.value) return
   await formRef.value.validate((valid, fields) => {
     if (valid) {
-      console.log('提交表单')
+      console.log(form)
+      sendmsg(form).then(res=>{
+        console.log(res)
+        console.log('回复收到')
+      })
       // 这里添加提交表单的逻辑
+      
       ElMessage.success('表单提交成功')
     } else {
       console.log('表单验证失败', fields)

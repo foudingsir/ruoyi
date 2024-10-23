@@ -21,6 +21,7 @@ import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.system.domain.SysPost;
 import com.ruoyi.project.system.service.ISysPostService;
+import com.ruoyi.project.system.domain.SysBaoxiao;
 
 /**
  * 岗位信息操作处理
@@ -125,5 +126,14 @@ public class SysPostController extends BaseController
     {
         List<SysPost> posts = postService.selectPostAll();
         return success(posts);
+    }
+
+    @PostMapping("/sendmsg")
+    public AjaxResult sendmsg(@RequestBody SysBaoxiao baoxiao)
+    {
+        System.out.println(baoxiao);
+        System.out.println("GGGGGGGGGGGG");
+        postService.selectPostAll();
+        return success();
     }
 }

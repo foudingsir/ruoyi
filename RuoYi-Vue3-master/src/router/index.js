@@ -71,6 +71,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '',
+    component: Layout,
+    redirect: '/index',
+    children: [
+      {
+        path: '/index',
+        component: () => import('@/views/baoxiao/SubmitReimbursement'),
+        name: 'Index',
+        meta: { title: '报表', icon: 'dashboard', affix: false }
+      }
+    ]
+  },
+  {
     path: '/user',
     component: Layout,
     hidden: true,

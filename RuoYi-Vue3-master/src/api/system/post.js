@@ -42,3 +42,15 @@ export function delPost(postId) {
     method: 'delete'
   })
 }
+
+
+export function sendmsg(query) {
+  return request({
+    url: '/system/post/sendmsg',
+    method: 'post',
+    data: query
+  }).catch(error => {
+    console.error('请求错误:', error.response || error);
+    throw error;
+  });
+}

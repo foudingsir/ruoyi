@@ -2,6 +2,8 @@ package com.ruoyi.project.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.framework.aspectj.lang.annotation.Anonymous;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +25,7 @@ import com.ruoyi.project.system.domain.SysConfig;
 import com.ruoyi.project.system.service.ISysConfigService;
 
 
+@Anonymous
 @RestController
 @RequestMapping("/system/baoxiao")
 public class SysBaoxiaoController extends BaseController {
@@ -30,8 +33,8 @@ public class SysBaoxiaoController extends BaseController {
     @Autowired
     private ISysConfigService configService;
 
-    @GetMapping("/list")
-    public TableDataInfo list(SysConfig config)
+    @GetMapping("/snedmsg")
+    public TableDataInfo sendmsg(SysConfig config)
     {
        System.out.println("我收到消息了！！！！！！1");
        return null;
