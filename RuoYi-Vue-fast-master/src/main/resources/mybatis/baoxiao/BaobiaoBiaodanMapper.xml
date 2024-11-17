@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.baoxiao.mapper.BaobiaoBiaodanMapper">
+    
+    <resultMap type="BaobiaoBiaodan" id="BaobiaoBiaodanResult">
+        <result property="biaodanId"    column="biaodan_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="amount"    column="amount"    />
+        <result property="reason"    column="reason"    />
+        <result property="date"    column="date"    />
+        <result property="file"    column="file"    />
+    </resultMap>
+
+    <sql id="selectBaobiaoBiaodanVo">
+        select biaodan_id, user_id, user_name, dept_name, amount, reason, date, file from baobiao_biaodan
+    </sql>
+
+    <select id="selectBaobiaoBiaodanList" parameterType="BaobiaoBiaodan" resultMap="BaobiaoBiaodanResult">
+        <include refid="selectBaobiaoBiaodanVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="date != null "> and date = #{date}</if>
+        </where>
+    </select>
+    
+    <select id="selectBaobiaoBiaodanByBiaodanId" parameterType="Long" resultMap="BaobiaoBiaodanResult">
+        <include refid="selectBaobiaoBiaodanVo"/>
+        where biaodan_id = #{biaodanId}
+    </select>
+
+    <insert id="insertBaobiaoBiaodan" parameterType="BaobiaoBiaodan">
+        insert into baobiao_biaodan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="biaodanId != null">biaodan_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="deptName != null and deptName != ''">dept_name,</if>
+            <if test="amount != null">amount,</if>
+            <if test="reason != null and reason != ''">reason,</if>
+            <if test="date != null">date,</if>
+            <if test="file != null">file,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="biaodanId != null">#{biaodanId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="deptName != null and deptName != ''">#{deptName},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="reason != null and reason != ''">#{reason},</if>
+            <if test="date != null">#{date},</if>
+            <if test="file != null">#{file},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBaobiaoBiaodan" parameterType="BaobiaoBiaodan">
+        update baobiao_biaodan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="deptName != null and deptName != ''">dept_name = #{deptName},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="reason != null and reason != ''">reason = #{reason},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="file != null">file = #{file},</if>
+        </trim>
+        where biaodan_id = #{biaodanId}
+    </update>
+
+    <delete id="deleteBaobiaoBiaodanByBiaodanId" parameterType="Long">
+        delete from baobiao_biaodan where biaodan_id = #{biaodanId}
+    </delete>
+
+    <delete id="deleteBaobiaoBiaodanByBiaodanIds" parameterType="String">
+        delete from baobiao_biaodan where biaodan_id in 
+        <foreach item="biaodanId" collection="array" open="(" separator="," close=")">
+            #{biaodanId}
+        </foreach>
+    </delete>
+</mapper>
