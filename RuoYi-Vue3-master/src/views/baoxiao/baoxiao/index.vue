@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="120px">
       <el-form-item label="报销人编号" prop="userId">
         <el-input
           v-model="queryParams.userId"
@@ -104,7 +104,7 @@
       <el-table-column label="报销人部门" align="center" prop="deptName" />
       <el-table-column label="报销金额" align="center" prop="amount" />
       <el-table-column label="报销事由" align="center" prop="reason" />
-      <el-table-column label="报销申请日期" align="center" prop="date" width="180">
+      <el-table-column label="报销申请日期" align="center" prop="date" width="220">
         <template #default="scope">
           <span>{{ parseTime(scope.row.date, '{y}-{m}-{d}') }}</span>
         </template>
@@ -131,8 +131,8 @@
     />
 
     <!-- 添加或修改baoxiao对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="biaodanRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" v-model="open" width="600px" append-to-body>
+      <el-form ref="biaodanRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="报销人编号" prop="userId">
           <el-input v-model="form.userId" placeholder="请输入报销人编号" />
         </el-form-item>
@@ -146,7 +146,8 @@
           <el-input v-model="form.amount" placeholder="请输入报销金额" />
         </el-form-item>
         <el-form-item label="报销事由" prop="reason">
-          <el-input v-model="form.reason" placeholder="请输入报销事由" />
+          <el-input v-model="form.reason" type="textarea"
+          :rows="4" placeholder="请输入报销事由" />
         </el-form-item>
         <el-form-item label="报销申请日期" prop="date">
           <el-date-picker clearable
@@ -275,7 +276,7 @@ function handleSelectionChange(selection) {
 function handleAdd() {
   reset();
   open.value = true;
-  title.value = "添加baoxiao";
+  title.value = "新增报销信息";
 }
 
 /** 修改按钮操作 */
@@ -285,7 +286,7 @@ function handleUpdate(row) {
   getBiaodan(_biaodanId).then(response => {
     form.value = response.data;
     open.value = true;
-    title.value = "修改baoxiao";
+    title.value = "修改报销信息";
   });
 }
 
@@ -327,6 +328,8 @@ function handleExport() {
     ...queryParams.value
   }, `biaodan_${new Date().getTime()}.xlsx`)
 }
+
+
 
 getList();
 </script>
